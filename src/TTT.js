@@ -45,7 +45,7 @@ function TTT() {
                 antiDiagonalCount++;
             }
         }
-        console.log(`xCount=${xCount}; yCount=${xCount}; DiagonalCount=${DiagonalCount};`);
+        console.log(`xCount=${xCount}; yCount=${yCount}; DiagonalCount=${DiagonalCount}; antiDiagonalCount=${antiDiagonalCount}`);
 
         if (xCount === n || yCount === n || DiagonalCount === n || antiDiagonalCount === n) {
             return true;
