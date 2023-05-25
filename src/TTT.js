@@ -24,7 +24,7 @@ function TTT() {
 
         console.log("newStep=" + newStep + " curX=" + cur_x + " curY=" + cur_y);
 
-        let xCount = 0, yCount = 0, DiagonalCount = 0;
+        let xCount = 0, yCount = 0, DiagonalCount = 0, antiDiagonalCount = 0;
 
         for (let i = 0; i < TOTAL_NUM; i++) {
             let x = Math.floor(i / n);
@@ -37,14 +37,17 @@ function TTT() {
                 yCount++;
             }
 
-            if ((x === y || x + y === n - 1) && pieces[i].content === newStep) {
+            if (x === y && pieces[i].content === newStep) {
                 DiagonalCount++;
             }
 
+            if (x + y === n - 1 && pieces[i].content === newStep) {
+                antiDiagonalCount++;
+            }
         }
         console.log(`xCount=${xCount}; yCount=${xCount}; DiagonalCount=${DiagonalCount};`);
 
-        if (xCount === n || xCount === n || DiagonalCount === n) {
+        if (xCount === n || yCount === n || DiagonalCount === n || antiDiagonalCount === n) {
             return true;
         }
 
@@ -54,8 +57,7 @@ function TTT() {
 
 
     function handleClick(piece) {
-        if (piece.isClick === true) {
-            console.log(`id: ${piece.id} is clicked`);
+        if (isEnd || piece.isClick === true) {
             return;
         }
 
