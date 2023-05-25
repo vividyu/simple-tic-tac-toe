@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const TOTAL_NUM = 9;
+const TOTAL_NUM = 25;
 
 
 function TTT() {
