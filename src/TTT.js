@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-const TOTAL_NUM = 25;
+import { v4 } from 'uuid';
+const N = 3;
 
 
 function TTT() {
@@ -8,9 +9,9 @@ function TTT() {
     const [isEnd, SetIsEnd] = useState(false);
 
     useEffect(() => {
-        let initPieces = new Array(TOTAL_NUM);
+        let initPieces = new Array(N * N);
 
-        for (let i = 0; i < TOTAL_NUM; i++) {
+        for (let i = 0; i < N * N; i++) {
             initPieces[i] = { id: i, content: " ", isClick: false };
         }
         SetPieces(initPieces);
@@ -18,7 +19,7 @@ function TTT() {
     }, []);
 
     function isWin(piece, newStep) {
-        let n = Math.floor(Math.sqrt(TOTAL_NUM));
+        let n = N;
         let cur_x = Math.floor(piece.id / n);
         let cur_y = Math.floor(piece.id % n);
 
@@ -26,7 +27,7 @@ function TTT() {
 
         let xCount = 0, yCount = 0, DiagonalCount = 0, antiDiagonalCount = 0;
 
-        for (let i = 0; i < TOTAL_NUM; i++) {
+        for (let i = 0; i < N * N; i++) {
             let x = Math.floor(i / n);
             let y = Math.floor(i % n);
 
@@ -76,13 +77,20 @@ function TTT() {
         if (winStat) SetIsEnd(true);
     }
 
+    let indices = new Array(N);
+    for (let i = 0; i < N; i++) {
+        indices[i] = i;
+    }
+
     return (
         <>
             <div className="board">
-                {
-                    pieces.map((curPiece) => {
-                        return <button className="piece" key={curPiece.id} onClick={() => handleClick(curPiece)}>{curPiece.content}</button>
-                    })
+                {indices.map(i => (
+                    <div className="row-container" key={v4()}>
+                        {pieces.slice(i * N, (i + 1) * N).map((curPiece) => (
+                            <button className="piece" key={curPiece.id} onClick={() => handleClick(curPiece)}>{curPiece.content}</button>
+                        ))}
+                    </div>))
                 }
             </div>
             {isEnd && (<p>{curStep} <span>wins!</span></p>)}
