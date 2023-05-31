@@ -12,7 +12,7 @@ function TTT() {
         let initPieces = new Array(N * N);
 
         for (let i = 0; i < N * N; i++) {
-            initPieces[i] = { id: i, content: " ", isClick: false };
+            initPieces[i] = { id: i, content: "\u00A0", isClick: false };
         }
         SetPieces(initPieces);
 
